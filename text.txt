@@ -1,0 +1,97 @@
+场景：
+    PC端中后台
+    PC端展示类
+    移动端H5应用
+    移动端展示类H5
+
+MVC框架：
+    Vue方案：
+        展示层：Vue
+        路由层：Vue Router
+        状态管理：Vuex
+        插件：
+            vue-meta：动态生成document.title
+            vuex-persistedstate：自动用localstorage缓存Vuex状态
+
+        UI组件：
+                PC端：Element UI
+                移动端：Mint UI、Vux（微信风格）
+
+        Ajax库：使用Axios，且用Promise封装
+
+        函数库：
+                函数式编程：lodash
+                日期时间库：fecha、date-fns（不推荐使用Moment.js，因太大）
+        图表类：
+                
+                移动端：蚂蚁金服F2
+                一般图表：蚂蚁金服G2
+                地图：百度地图、Echarts
+                流程图：蚂蚁金服G6
+                关系型网络型图：蚂蚁金服G6，Vis.js，Echarts
+
+搭建开发环境：
+    安装Node.js
+    (使用淘宝镜像) 在～/下创建.npmrc文件，写入：   registry=https://registry.npm.taobao.org  
+    (使用管理员权限更新npm) 执行 npm i -g npm 
+    建议使用WebStorm开发
+
+开发：
+    使用Vue-cli生成项目：vue init webpack ‘新项目名’
+    进入‘新项目名’目录下，执行 npm install，安装依赖包
+    会打进生产包的库应当用: npm install --save '包名字'  来安装, 对应package.json的dependencies字段
+    其余库应当用: npm install --save-dev '包名字'  来安装, 对应package.json的devDependencies字段
+
+目录&文件：
+    按照以上步骤生成src/目录，其中：
+    router/ 路由相关
+    components/ 可复用的组件
+    pages/ 页面，按模块可以建子目录
+    service/ 封装后的API列表
+             Vue Filter列表
+             封装后的网络请求库
+             其它需要按需注入的服务
+    store/ 对Vuex的封装，包括store，mutations，actions等
+    assets/ 静态资源，会被loaders处理
+
+
+部署生产：
+    运行： npm run build
+    
+
+
+文档：
+    Vue系列：
+        Vue：https://cn.vuejs.org/v2/guide/
+        Vue Router：https://router.vuejs.org/zh/
+        Vuex：https://vuex.vuejs.org/zh/
+        工具链：
+            Vue  Cli（命令行脚手架搭建项目）：https://cli.vuejs.org/guide/
+                说明：注意3.0版与之前差别大
+            vue-devtools（浏览器插件）：https://github.com/vuejs/vue-devtools
+                说明：火狐可以直接搜索AddOn安装；Chrome插件被墙，需要从GitHub上自行下载编译安装
+            Vue-Loader：https://vue-loader.vuejs.org/zh/
+                说明：WebPack的Loader配置，根据项目需求微调
+    
+    工具链：
+        WebPack：https://webpack.js.org/
+        webpack-bundle-analyzer：https://www.npmjs.com/package/webpack-bundle-analyzer
+
+    UI组件：
+        Element UI：http://element-cn.eleme.io/#/zh-CN/component/installation
+        Mint UI：http://elemefe.github.io/mint-ui/#/
+
+
+    图表类：
+        蚂蚁金服G6：http://antv.alipay.com/zh-cn/g6/1.x/index.html
+        蚂蚁金服G2：http://antv.alipay.com/zh-cn/g2/3.x/demo/index.html
+        蚂蚁金服F2: http://antv.alipay.com/zh-cn/f2/3.x/demo/index.html
+        Vis.js：http://visjs.org/showcase/index.html
+        Echarts：http://echarts.baidu.com/examples/
+
+    网络请求：
+        axios：https://www.npmjs.com/package/axios
+
+    日期时间库：
+        fecha：https://www.npmjs.com/package/fecha
+        date-fns：https://www.npmjs.com/package/date-fns
