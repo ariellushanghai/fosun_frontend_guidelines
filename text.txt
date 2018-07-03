@@ -109,7 +109,9 @@ MVC框架：
     发布：将dist/目录部署到生产Web服务器，做好备份，标记Git的RELEASE
     以上步骤可以jenkins集成，注意改动node_modules/ 之后要及时更新jenkins
     
-
+与复星通桥接：
+    待定
+    把钉钉桥接封装为Promise
 
 文档：
     RAIL规范：https://developers.google.com/web/fundamentals/performance/rail#response
