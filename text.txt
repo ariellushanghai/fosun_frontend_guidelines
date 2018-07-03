@@ -45,22 +45,52 @@ MVC框架：
 目录&文件：
     按照以上步骤生成src/目录，其中：
     router/ 路由相关
-    components/ 可复用的组件
+    components/ 可复用的组件,格式是“单文件组件”
     pages/ 页面，按模块可以建子目录
-    service/ 封装后的API列表
+    service/ 用axios封装后的API列表，
              Vue Filter列表
              封装后的网络请求库
              其它需要按需注入的服务
     store/ 对Vuex的封装，包括store，mutations，actions等
     assets/ 静态资源，会被loaders处理
 
+规范：
+    项目根目录下要有README文件，重点描述：
+        开发，测试和生产环境的命令，
+        开发，测试和生产环境的线上地址
+        生产环境的缓存机制
+        登陆认证方式
+        接口鉴权方式
+        注意事项，
+            如有对Web服务器有特殊配置(nginx.conf等)，需说明
+            如有跨域情况，在此说明
+            如有嵌套/被嵌套<iframe/>情况，在此说明
+            对cookie，sessionStorage，localStorage的使用情况
+    
+    不能手工改动node_modules/ 目录下任何文件
+    PC端项目根据需求或者兼容Chrome，Firefox，IE11
+    移动端项目根据需求做兼容性
+
+    性能：
+        通用: 打包后观察输出，如果有单个包体积超过500K，使用webpack-bundle-analyzer检查原因
+             进行优化，条件加载/延迟加载/换用第三方库等
+        移动：按照RAILS方法检查：
+             工具：Chrome DevTools, Lighthouse, WebPageTest
+             Response: 对用户的交互响应时间 < 100ms
+             Animation: 一帧动画/滚动页面 < 10ms，无延迟/卡顿/抖动
+             Idle：利用空闲时间执行资源/时间开销大的任务，如预加载页面/资源/Ajax请求
+             Load：从页面空白到可以交互，时间在4秒以内，目标在2秒以内；后续页面加载时间 < 1秒
+
 
 部署生产：
     运行： npm run build
-    
+
 
 
 文档：
+    RAIL规范：https://developers.google.com/web/fundamentals/performance/rail#response
+    性能检查：https://www.smashingmagazine.com/2018/04/mobile-first-optimization-tools/
+    
     Vue系列：
         Vue：https://cn.vuejs.org/v2/guide/
         Vue Router：https://router.vuejs.org/zh/
