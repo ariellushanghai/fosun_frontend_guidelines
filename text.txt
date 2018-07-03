@@ -1,3 +1,10 @@
+UI界面：
+    清爽，商务，带一些互联网风
+    参考：https://appuat.fosun.com/investment/#/latestProjectList
+
+数据传输和登陆认证：与后台和安全团队出统一方案
+
+// 搞PC和移动两套模板
 场景：
     PC端中后台
     PC端展示类
@@ -48,6 +55,8 @@ MVC框架：
     会打进生产包的库应当用: npm install --save '包名字'  来安装, 对应package.json的dependencies字段
     其余库应当用: npm install --save-dev '包名字'  来安装, 对应package.json的devDependencies字段
 
+// 选中的第三方库 直接写进package.json中，
+// 通用功能建一个目录，供各项目自行import
 目录&文件：
     按照以上步骤生成src/目录，其中：
     router/ 路由相关
@@ -65,26 +74,27 @@ MVC框架：
         开发，测试和生产环境的命令，
         开发，测试和生产环境的线上地址
         生产环境的缓存机制
-        登陆认证方式
-        接口鉴权方式
+        登陆认证方式    ？ // 基本都是https＋外网可访问的＋安全团队
+        接口鉴权方式    ？
         注意事项，
+            // 服务器如何持续鉴别token，中间人攻击？
             如有对Web服务器有特殊配置(nginx.conf等)，需说明
             如有跨域情况，在此说明
             如有嵌套/被嵌套<iframe/>情况，在此说明
-            对cookie，sessionStorage，localStorage的使用情况
+            对cookie，sessionStorage，localStorage的使用情况 // 加密规范
     
     不能手工改动node_modules/ 目录下任何文件
-    PC端项目根据需求或者兼容Chrome，Firefox，IE11
-    移动端项目根据需求做兼容性
+    PC端项目根据需求或者兼容Chrome，Firefox，IE11 // 确定最低版本，统计第三方库
+    移动端项目根据需求做兼容性 // 钉钉的UC&iOS的浏览器内核 问陈宁侠
 
 
 
 性能要求：
     通用: 打包后观察输出，如果有单个包体积超过500K，使用webpack-bundle-analyzer检查原因
-            进行优化，条件加载/延迟加载/换用第三方库等
-            结合WebPack使用：
             Import()语句条件加载
             WebPack的TreeShaking
+            进行优化，条件加载/延迟加载/换用第三方库等
+            结合WebPack使用：
             WebPack的Code Splitting
             使用第三方库的ES6 Module优化版（更小体积）
 
@@ -102,14 +112,14 @@ MVC框架：
             遍历所有页面，触发工具计算已用，未用代码百分比
 
 
-
+// 整合Jenkins
 部署生产：
     运行： npm run build
     生成：项目下的dist/目录
     发布：将dist/目录部署到生产Web服务器，做好备份，标记Git的RELEASE
     以上步骤可以jenkins集成，注意改动node_modules/ 之后要及时更新jenkins
     
-与复星通桥接：
+与复星通桥接： // 胡伟？
     待定
     把钉钉桥接封装为Promise
 
