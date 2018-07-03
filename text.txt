@@ -29,6 +29,12 @@ MVC框架：
                 地图：百度地图、Echarts
                 流程图：蚂蚁金服G6
                 关系型网络型图：蚂蚁金服G6，Vis.js，Echarts
+        
+        语言：
+                JavaScript: ES7，ES6 （建议开发时使用Flow做静态类型检查）
+                CSS预处理器：Stylus, SCSS等
+                模板语言：XML，Pug等
+
 
 搭建开发环境：
     安装Node.js
@@ -71,20 +77,38 @@ MVC框架：
     PC端项目根据需求或者兼容Chrome，Firefox，IE11
     移动端项目根据需求做兼容性
 
-    性能：
-        通用: 打包后观察输出，如果有单个包体积超过500K，使用webpack-bundle-analyzer检查原因
-             进行优化，条件加载/延迟加载/换用第三方库等
-        移动：按照RAILS方法检查：
-             工具：Chrome DevTools, Lighthouse, WebPageTest
-             Response: 对用户的交互响应时间 < 100ms
-             Animation: 一帧动画/滚动页面 < 10ms，无延迟/卡顿/抖动
-             Idle：利用空闲时间执行资源/时间开销大的任务，如预加载页面/资源/Ajax请求
-             Load：从页面空白到可以交互，时间在4秒以内，目标在2秒以内；后续页面加载时间 < 1秒
+
+
+性能要求：
+    通用: 打包后观察输出，如果有单个包体积超过500K，使用webpack-bundle-analyzer检查原因
+            进行优化，条件加载/延迟加载/换用第三方库等
+            结合WebPack使用：
+            Import()语句条件加载
+            WebPack的TreeShaking
+            WebPack的Code Splitting
+            使用第三方库的ES6 Module优化版（更小体积）
+
+    移动：
+        按照RAILS方法检查：
+            工具：Chrome DevTools, Lighthouse(至少运行3次), WebPageTest
+            Response: 对用户的交互响应时间 < 100ms
+            Animation: 一帧动画/滚动页面 < 10ms，无延迟/卡顿/抖动
+            Idle：利用空闲时间执行资源/时间开销大的任务，如预加载页面/资源/Ajax请求
+            Load：从页面空白到可以交互，时间在4秒以内，目标在2秒以内；后续页面加载时间 < 1秒
+        
+        按照清单检查：https://apiumhub.com/tech-blog-barcelona/web-performance-optimization-techniques/
+        去除无用代码：
+            工具：Chrome DevTools右上角点进去>“更多工具”>“覆盖测试”
+            遍历所有页面，触发工具计算已用，未用代码百分比
+
 
 
 部署生产：
     运行： npm run build
-
+    生成：项目下的dist/目录
+    发布：将dist/目录部署到生产Web服务器，做好备份，标记Git的RELEASE
+    以上步骤可以jenkins集成，注意改动node_modules/ 之后要及时更新jenkins
+    
 
 
 文档：
