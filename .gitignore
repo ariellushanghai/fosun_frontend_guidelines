@@ -1,0 +1,21 @@
+guide_book/
+.DS_Store
+package-lock.json
+node_modules/
+dist/
+src/assets/docs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.setting*
+.svn*
+
+# Editor directories and files
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.iml
+.idea/
+.gitignore~
