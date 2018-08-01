@@ -30,7 +30,7 @@ ______________________________
     1. 兼容性要求
     2. 优化方法
     3. 通用标准
-    4. 移动端标准
+    4. 复星通H5标准
     5. 文档规范
 
 * ### 部署生产
@@ -72,7 +72,7 @@ ______________________________
 2.    编程语言:
       * ECMAScript 2017
         - 异步函数推荐使用[async](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function),[await](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await)语法，或[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
-        - 注意对[低版本浏览器](https://caniuse.com)使用[语法polyfill](https://babeljs.io/docs/en/babel-polyfill#docsNav)
+        - 注意对[低版本浏览器](https://caniuse.com)使用[语法polyfill](https://babeljs.io/docs/en/babel-polyfill#docsNav), [（Vue CLI配置）](https://cli.vuejs.org/zh/guide/browser-compatibility.html#polyfill)
       * 样式：命名规则遵循[BEM方法](http://getbem.com/introduction/)，并使用以下一种预处理语言：
         - [Stylus](http://stylus-lang.com/)
         - [SASS/SCSS](https://devhints.io/sass)
@@ -111,25 +111,25 @@ ______________________________
 1. 安装[Node.js](https://nodejs.org/en/download/)
 2. 在～/下创建.npmrc文件, 写入：`registry=https://registry.npm.taobao.org`
 3. 更新npm,(使用管理员权限)执行: `npm i -g npm` 
-4. 安装[vue-cli](https://www.npmjs.com/package/vue-cli), (使用管理员权限)执行: `npm install -g vue-cli`。
+4. 安装[vue-cli](https://cli.vuejs.org/zh/), (使用管理员权限)执行: `npm install -g vue-cli`
 
-   获得命令行工具vue。
-   > vue-cli是Vue.js官方的脚手架项目生成工具
+   获得命令行工具`vue`
+   
+⚠️注意：
+> 这里使用[vue-cli 3.0.0-rc.10](https://cli.vuejs.org/zh/)
+> 
+> 与3.0之前版本的[vue-cli](https://www.npmjs.com/package/vue-cli)差异较大
    
 
 #### 生成Vue项目
-1. 执行: `vue init webpack 新项目名` 生成项目目录（详见[文档](https://github.com/vuejs-templates/webpack)）
-    
-   或者获取定期维护更新的预定义模版: [PC端中后台](#), [复星通内H5应⽤](#)
-
+1. 执行: `vue init webpack 新项目名` 生成项目目录（详见[文档](https://github.com/vuejs-templates/webpack)）, 或者获取定期维护更新的预定义模版: [PC端中后台](#), [复星通内H5应⽤](#)
 2. 进入项目目录：`cd 新项目名/`
-
-   安装依赖包：`npm install`
+3. 安装依赖包：`npm install`
    
-   ⚠️注意：
-   > 
-        会打进生产包的库应当用: npm install --save '包名字'  来安装, 对应package.json的dependencies字段
-        其余库应当用: npm install --save-dev '包名字'  来安装, 对应package.json的devDependencies字段
+⚠️注意：
+> 
+    会打进生产包的库应当用: npm install --save '包名字'  来安装, 对应package.json的dependencies字段
+    其余库应当用: npm install --save-dev '包名字'  来安装, 对应package.json的devDependencies字段
 
 #### 目录结构和文件命名规范
 
@@ -149,7 +149,7 @@ ______________________________
 #### WorkFlow
 
 * 进入项目目录：`cd 新项目名/`
-* 开发模式： `npm start`
+* 开发模式： `npm run serve`
 * 打生产包： `npm run build`
 * 更新依赖包： `npm update`
 
@@ -167,7 +167,7 @@ _详见`package.json`的'scripts'字段_
     - 注意事项，
         1. 如有加密规范，在此说明
         2. 如有对Web服务器有特殊配置，在此说明
-        3. 如有跨域情况，在此说明
+        3. 如有[跨域](https://cli.vuejs.org/zh/config/#devserver-proxy)情况，在此说明
         4. 如有嵌套/被嵌套`<iframe/>`情况，在此说明
         5. 对cookie，sessionStorage，localStorage的使用
         6. 对网络请求Header字段的使用
@@ -185,8 +185,8 @@ _详见`package.json`的'scripts'字段_
 #### 优化方法
 
 * 寻找问题：
-    1. 使用[webpack-bundle-analyzer](https://www.npmjs.com/search?q=webpack-bundle-analyzer)检查原因
-    2. Chrome DevTools > ['Audits'](https://developers.google.com/web/tools/lighthouse/#devtools) （至少运行3次）
+    1. 使用[webpack-bundle-analyzer](https://www.npmjs.com/search?q=webpack-bundle-analyzer)检查bundles内容和体积
+    2. Chrome DevTools > ['Audits'](https://developers.google.com/web/tools/lighthouse/#devtools)至少运行3次，得出lighthouse审计报告
     3. [webpagetest](https://www.webpagetest.org/) （外网在线测试）
     
 * 比照[清单](https://apiumhub.com/tech-blog-barcelona/web-performance-optimization-techniques/)检查
@@ -199,15 +199,18 @@ _详见`package.json`的'scripts'字段_
   - [webpack的tree shaking](https://webpack.docschina.org/guides/tree-shaking/)
   - [用webpack的import()方法条件加载](https://webpack.js.org/api/module-methods/#import-)
   - [webpack的懒加载](https://webpack.docschina.org/guides/lazy-loading/)
-  - 使用第三方库的ES6 Module优化版（打包后获得更小体积），详见:[不同版本lodash引入方式对bundler大小影响](https://www.blazemeter.com/blog/the-correct-way-to-import-lodash-libraries-a-benchmark)
-      
+  - 使用第三方库的ES6 Module优化版（打包后获得更小体积），详见:[不同版本lodash引入方式对bundles大小影响](https://www.blazemeter.com/blog/the-correct-way-to-import-lodash-libraries-a-benchmark)
       
 * 使用webpack优化资源
   - 素材使用对应[webpack loaders](https://webpack.docschina.org/concepts/loaders/)压缩处理
 
 #### 通用标准
 
+* Landing页面不重定向
+* 生产服务器静态资源做minify
 * 单个静态资源文件大小不超过400K
+* 生产服务器开启`gzip`压缩
+* 使用`Cache-Control`和`ETag`进行缓存
 
 
 #### 复星通H5标准
@@ -218,3 +221,30 @@ _详见`package.json`的'scripts'字段_
 * 利用空闲时间执行资源/时间开销大的任务，如预加载页面/资源/Ajax请求
 
 #### 文档规范
+
+
+### 部署生产
+
+#### 上线检查清单
+
+#### 打包规范
+
+#### 部署流程
+
+
+### 附录
+
+#### 文档和资源链接
+
+* 登陆认证&接⼝鉴权文档
+    1. [登陆认证](#)
+    2. [接⼝鉴权](#)
+
+* 模版地址
+    1. [PC端中后台](#)
+    2. [复星通内H5应⽤](#)
+
+* UI
+    1. [PC端中后台样版页面]()
+    2. [复星通内H5应⽤样版页面]()
+    3. [通⽤素材资源下载]() 
